@@ -23,7 +23,8 @@ class _AyatScreenState extends State<AyatScreen> {
     });
 
     try {
-      String jsonString = await rootBundle.loadString('assets/data/quran_texts-alfatihah.json');
+      String jsonString =
+          await rootBundle.loadString('assets/data/quran_texts-alfatihah.json');
       Map<String, dynamic> jsonMap = json.decode(jsonString);
       ayats = jsonMap['data'].values.toList().cast<Map<String, dynamic>>();
 
@@ -56,25 +57,26 @@ class _AyatScreenState extends State<AyatScreen> {
         child: isLoading
             ? CircularProgressIndicator()
             : ayats == null
-            ? Text('Failed to load Ayat')
-            : ListView.builder(
-          itemCount: ayats!.length,
-          itemBuilder: (context, index) {
-            var ayat = ayats![index];
-            return ListTile(
-              title: Center(
-                child: Text(
-                  ayat['text1'] ?? 'No text',
-                  textAlign: TextAlign.center,
-                  textDirection: TextDirection.rtl,
-                  style: TextStyle(
-                    fontSize: 20,
+                ? Text('Failed to load Ayat')
+                : ListView.builder(
+                    itemCount: ayats!.length,
+                    itemBuilder: (context, index) {
+                      var ayat = ayats![index];
+                      return ListTile(
+                        title: Center(
+                          child: Text(
+                            ayat['text1'] ?? 'No text',
+                            textAlign: TextAlign.center,
+                            textDirection: TextDirection.rtl,
+                            style: TextStyle(
+                              fontFamily: "MeQuran2",
+                              fontSize: 20,
+                            ),
+                          ),
+                        ),
+                      );
+                    },
                   ),
-                ),
-              ),
-            );
-          },
-        ),
       ),
     );
   }
