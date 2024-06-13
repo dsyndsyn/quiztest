@@ -57,7 +57,7 @@ class _AyatScreenState extends State<AyatScreen> {
         child: isLoading
             ? CircularProgressIndicator()
             : ayats == null
-                ? Text('Failed to load Ayat')
+                ? const Text('Failed to load Ayat')
                 : ListView.builder(
                     itemCount: ayats!.length,
                     itemBuilder: (context, index) {
