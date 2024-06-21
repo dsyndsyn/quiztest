@@ -1,19 +1,21 @@
 import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'package:flutter/services.dart' show rootBundle;
-import 'highlighter.dart'; // Import the AyahHighlighter and SliceHighlighter classes
+import 'highlighter.dart';
 
 class AyatScreen extends StatefulWidget {
+  const AyatScreen({super.key}); // Define constructor with key
+
   @override
-  _AyatScreenState createState() => _AyatScreenState();
+  AyatScreenState createState() => AyatScreenState();
 }
 
-class _AyatScreenState extends State<AyatScreen> {
+class AyatScreenState extends State<AyatScreen> {
   List<Map<String, dynamic>>? ayats;
   bool isLoading = false;
   int currentIndex = 0;
   int currentSliceIndex = 0; // Track current slice index
-  int numberOfAyahsToShow = 7; // Change this to adjust number of ayahs to display
+  int numberOfAyahsToShow = 7; // Adjust number of ayahs to display
 
   // Instance of AyahHighlighter class to manage highlights
   late AyahHighlighter ayahHighlighter;
@@ -30,7 +32,8 @@ class _AyatScreenState extends State<AyatScreen> {
     });
 
     try {
-      String jsonString = await rootBundle.loadString('assets/data/quran_texts-alfatihah.json');
+      String jsonString =
+      await rootBundle.loadString('assets/data/quran_texts-alfatihah.json');
       Map<String, dynamic> jsonMap = json.decode(jsonString);
       ayats = jsonMap['data'].values.toList().cast<Map<String, dynamic>>();
 
@@ -45,7 +48,7 @@ class _AyatScreenState extends State<AyatScreen> {
       // Initialize AyahHighlighter with the list of ayats
       ayahHighlighter = AyahHighlighter(ayats: ayats!);
     } catch (e) {
-      print('Failed to load Ayat: $e');
+      debugPrint('Failed to load Ayat: $e');
     }
 
     setState(() {
@@ -91,10 +94,10 @@ class _AyatScreenState extends State<AyatScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Surah Al-Fatihah'),
+        title: const Text('Surah Al-Fatihah'),
         backgroundColor: Colors.blueGrey,
         leading: IconButton(
-          icon: Icon(Icons.arrow_back),
+          icon: const Icon(Icons.arrow_back),
           onPressed: () {
             Navigator.pop(context);
           },
@@ -102,9 +105,9 @@ class _AyatScreenState extends State<AyatScreen> {
       ),
       body: Center(
         child: isLoading
-            ? CircularProgressIndicator()
+            ? const CircularProgressIndicator()
             : ayats == null || ayats!.isEmpty
-            ? Text('Failed to load Ayat')
+            ? const Text('Failed to load Ayat')
             : Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -116,45 +119,53 @@ class _AyatScreenState extends State<AyatScreen> {
                 currentSliceIndex,
               ),
             ),
-
-            SizedBox(height: 20),
-
-            Divider(thickness: 2),
-
-            SizedBox(height: 20),
-
+            const SizedBox(height: 20),
+            const Divider(thickness: 2),
+            const SizedBox(height: 20),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 if (currentSliceIndex > 0)
                   ElevatedButton(
                     onPressed: previousSlice,
-                    child: Text('Previous Slice'),
+                    child: const Text(
+                      'Previous Slice',
+                      style: TextStyle(color: Colors.blueGrey),
+                    ),
                   ),
-                SizedBox(width: 8), // Adjust spacing as needed
-                if (currentSliceIndex < ayahHighlighter.getNumberOfSlices(currentIndex) - 1)
+                const SizedBox(width: 8),
+                if (currentSliceIndex <
+                    ayahHighlighter.getNumberOfSlices(currentIndex) -
+                        1)
                   ElevatedButton(
                     onPressed: nextSlice,
-                    child: Text('Next Slice'),
+                    child: const Text(
+                      'Next Slice',
+                      style: TextStyle(color: Colors.blueGrey),
+                    ),
                   ),
               ],
             ),
-
-            SizedBox(height: 20),
-
+            const SizedBox(height: 20),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 if (currentIndex > 0)
                   ElevatedButton(
                     onPressed: showPreviousAya,
-                    child: Text('< Back'),
+                    child: const Text(
+                      '< Back',
+                      style: TextStyle(color: Colors.blueGrey),
+                    ),
                   ),
-                SizedBox(width: 8), // Adjust spacing as needed
+                const SizedBox(width: 8),
                 if (currentIndex < (ayats?.length ?? 0) - 1)
                   ElevatedButton(
                     onPressed: showNextAya,
-                    child: Text('Next >'),
+                    child: const Text(
+                      'Next >',
+                      style: TextStyle(color: Colors.blueGrey),
+                    ),
                   ),
               ],
             ),

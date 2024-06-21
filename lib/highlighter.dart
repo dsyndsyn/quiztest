@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'slice.dart'; // Import the AyahSlicer class
+import 'slice.dart';
 
 // Class to represent each highlight segment
 class HighlightSegment {
@@ -36,12 +36,15 @@ class AyahHighlighter {
 
   // Function to highlight specific parts of the ayah text for the current slice
   TextSpan getCurrentSliceTextSpan(int ayahIndex, int sliceIndex) {
-    if (ayahIndex >= 0 && ayahIndex < ayahHighlights.length && sliceIndex >= 0 && sliceIndex < ayahHighlights[ayahIndex].length) {
+    if (ayahIndex >= 0 &&
+        ayahIndex < ayahHighlights.length &&
+        sliceIndex >= 0 &&
+        sliceIndex < ayahHighlights[ayahIndex].length) {
       List<HighlightSegment> segments = ayahHighlights[ayahIndex][sliceIndex];
       String ayahText = ayats![ayahIndex]['text1'] ?? 'No text';
       return highlightAyah(ayahText, segments);
     }
-    return TextSpan(text: '');
+    return const TextSpan(text: '');
   }
 
   // Function to highlight specific parts of the ayah text
@@ -57,7 +60,7 @@ class AyahHighlighter {
         spans.add(
           TextSpan(
             text: text.substring(0, startIndex),
-            style: TextStyle(
+            style: const TextStyle(
               fontFamily: "MeQuran2",
               fontSize: 20,
               color: Colors.black,
@@ -85,7 +88,7 @@ class AyahHighlighter {
       spans.add(
         TextSpan(
           text: text,
-          style: TextStyle(
+          style: const TextStyle(
             fontFamily: "MeQuran2",
             fontSize: 20,
             color: Colors.black,

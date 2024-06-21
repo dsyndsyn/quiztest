@@ -1,39 +1,49 @@
 import 'package:flutter/material.dart';
-import 'package:quiztest/ayat.dart'; // Import the Ayat screen
+import 'package:quiztest/ayat.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Quran Text',
       theme: ThemeData(
         primarySwatch: Colors.blue,
+        appBarTheme: const AppBarTheme(
+          backgroundColor: Colors.blueGrey,
+        ),
       ),
-      home: MainScreen(),
+      home: const MainScreen(),
     );
   }
 }
 
 class MainScreen extends StatelessWidget {
+  const MainScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Quran Text'),
+        title: const Text('Quran Text'),
       ),
       body: Center(
         child: ElevatedButton(
           onPressed: () {
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => AyatScreen()), // Navigate to Ayat screen
+              MaterialPageRoute(builder: (context) => const AyatScreen()),
             );
           },
-          child: Text('Load Ayat'),
+          child: const Text(
+            'Load Ayat',
+            style: TextStyle(color: Colors.blueGrey),
+          ),
         ),
       ),
     );
